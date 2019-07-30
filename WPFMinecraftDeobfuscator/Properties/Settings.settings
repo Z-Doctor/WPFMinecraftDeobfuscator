@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MinecraftDeobfuscator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="VersionJsonUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://export.mcpbot.bspk.rs/versions.json</Value>
+    </Setting>
+    <Setting Name="SRGZipUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://export.mcpbot.bspk.rs/mcp/{0}/mcp-{0}-srg.zip</Value>
+    </Setting>
+    <Setting Name="StableZipUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://export.mcpbot.bspk.rs/mcp_stable/{0}-{1}/mcp_stable-{0}-{1}.zip</Value>
+    </Setting>
+    <Setting Name="SnapshotZipUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://export.mcpbot.bspk.rs/mcp_snapshot/{0}-{1}/mcp_snapshot-{0}-{1}.zip</Value>
+    </Setting>
+    <Setting Name="LiveFields" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://export.mcpbot.bspk.rs/fields.csv</Value>
+    </Setting>
+    <Setting Name="LiveMethods" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://export.mcpbot.bspk.rs/methods.csv</Value>
+    </Setting>
+    <Setting Name="LiveParams" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://export.mcpbot.bspk.rs/params.csv</Value>
+    </Setting>
+    <Setting Name="FieldsFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">fields.csv</Value>
+    </Setting>
+    <Setting Name="MethodsFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">methods.csv</Value>
+    </Setting>
+    <Setting Name="ParamsFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">params.csv</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

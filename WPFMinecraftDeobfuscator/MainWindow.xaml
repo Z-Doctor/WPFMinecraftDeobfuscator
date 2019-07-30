@@ -1,0 +1,148 @@
+﻿<Window x:Class="MinecraftDeobfuscator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:MinecraftDeobfuscator"
+        mc:Ignorable="d"
+        Title="Minecraft Deobfuscator v3.0" Width="800" Background="#FF646464" Icon="bloodmoon.png" MinHeight="400" MinWidth="165" Height="408">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="10,10,0,41" HorizontalAlignment="Left" Width="130.833" VerticalAlignment="Top">
+            <Button Content="Open" Height="25" VerticalAlignment="Top" Margin="0,0,0,5" Click="OpenButton_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Running}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding OpeningFile}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Label Content="Mapping&#xA;" Height="26" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+            <local:MCMappingControl x:Name="MCMappingPicker" Height="25" VerticalAlignment="Top" Width="Auto" Margin="0" IsDisabled="{Binding Running}" OnPopupClosed="OnPopupClosed_Event"/>
+            <WrapPanel Margin="0">
+                <Label Content="Mappings:" Padding="5,5,1,5" FontWeight="Bold"/>
+                <Label Content="{Binding MappingCount}" Margin="0" Padding="3,5,5,5"/>
+            </WrapPanel>
+            <Button Content="Refresh Mappings" Height="25" VerticalAlignment="Top" Margin="0,0,0,5" Click="RefreshButton_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Reference Name=MCMappingPicker}, Path=IsUpdating}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Reference Name=MCMappingPicker}, Path=IsDisabled}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="Start" Height="25" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Padding="1" RenderTransformOrigin="0.5,0.5" Margin="0,5" Click="StartButton_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Running}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Reference Name=MCMappingPicker}, Path=Mapping}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Reference Name=MCMappingPicker}, Path=PopUpOpen}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MappingLoaded}" Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ZipFile}" Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding OpeningFile}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Reference Name=MCMappingPicker}, Path=IsUpdating}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Grid Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <WrapPanel>
+                    <Label Content="Found Files:" Padding="5,5,1,5" FontWeight="Bold"/>
+                    <Label Content="{Binding FileCount}" Margin="0" Padding="1,5,5,5"/>
+                </WrapPanel>
+                <WrapPanel Grid.Row="1">
+                    <Label Content="Java Files:" Padding="5,5,1,5" FontWeight="Bold"/>
+                    <Label Content="{Binding JavaFileCount}" Margin="0" Padding="1,5,5,5"/>
+                </WrapPanel>
+                <WrapPanel Grid.Row="2">
+                    <Label Content="Misc Files:" Padding="5,5,1,5" FontWeight="Bold"/>
+                    <Label Content="{Binding MiscFileCount}" Margin="0" Padding="1,5,5,5"/>
+                </WrapPanel>
+            </Grid>
+        </StackPanel>
+        <ProgressBar x:Name="Progress" Margin="10,0,10,10" Height="26" VerticalAlignment="Bottom"/>
+        <Grid Margin="145.833,10,10,0" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <WrapPanel Margin="0,0,0,8">
+                <Label Content="File:" Padding="5,5,1,5" FontWeight="Bold"/>
+                <Label Content="{Binding InputFile.Name}" Margin="0" Padding="3,5,5,5" ToolTip="{Binding InputFile.FullName}"/>
+            </WrapPanel>
+        </Grid>
+        <ScrollViewer Margin="392.096,74.92,10,41" ScrollChanged="OnScrollChanged">
+            <TextBox x:Name="Console" TextWrapping="Wrap" IsReadOnly="True" IsReadOnlyCaretVisible="True">
+                <TextBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Clear" Click="ClearLog"/>
+                    </ContextMenu>
+                </TextBox.ContextMenu>
+            </TextBox>
+        </ScrollViewer>
+        <Grid Margin="145.833,69.92,0,41" HorizontalAlignment="Left" Width="241.263">
+            <Label Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="SearchBar" Margin="50.263,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21.96" MaxLines="1" TextChanged="UpdateSearch"/>
+            <ListBox x:Name="ResultList" Margin="0,31.96,0,0" MouseDoubleClick="ResultDBClicked">
+                <ListBox.CommandBindings>
+                    <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
+                </ListBox.CommandBindings>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="ApplicationCommands.Copy">
+                            <MenuItem.CommandBindings>
+                                <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
+                            </MenuItem.CommandBindings>
+                        </MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+
+        </Grid>
+
+    </Grid>
+</Window>
