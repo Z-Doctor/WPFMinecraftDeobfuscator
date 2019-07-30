@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class BinaryTree<K, V> where K : IComparable<K>, IEquatable<K> {
 
     public int Count { get; private set; }
-    public SortedList<K, Node> Head { get; } = new SortedList<K, Node>();
+    public Dictionary<K, Node> Head { get; } = new Dictionary<K, Node>();
 
     private readonly Dictionary<IEnumerable<K>, V> keyValuePairs = new Dictionary<IEnumerable<K>, V>();
     public Dictionary<IEnumerable<K>, V> KeyValuePairs { get => new Dictionary<IEnumerable<K>, V>(keyValuePairs); }
@@ -61,7 +61,7 @@ public class BinaryTree<K, V> where K : IComparable<K>, IEquatable<K> {
         public IEnumerable<K> Keys { get; set; }
         public K Key { get; }
         public V Value { get; set; }
-        private SortedList<K, Node> ChildNodes { get; } = new SortedList<K, Node>();
+        private Dictionary<K, Node> ChildNodes { get; } = new Dictionary<K, Node>();
 
         public Node this[K key] {
             get {
