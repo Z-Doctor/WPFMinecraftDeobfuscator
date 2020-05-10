@@ -3,18 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:MinecraftDeobfuscator"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Minecraft Deobfuscator v3.0" Width="800" Background="#FF646464" Icon="bloodmoon.png" MinHeight="400" MinWidth="165" Height="408">
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Title="Minecraft Deobfuscator v3.0" Width="800" Background="{DynamicResource MaterialDesignPaper}" Icon="bloodmoon.png" MinHeight="400" MinWidth="165" Height="408">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Margin="10,10,0,41" HorizontalAlignment="Left" Width="130.833" VerticalAlignment="Top">
-            <Button Content="Open" Height="25" VerticalAlignment="Top" Margin="0,0,0,5" Click="OpenButton_Click">
+            <Button Content="Open" Height="Auto" VerticalAlignment="Top" Margin="0,0,0,5" Click="OpenButton_Click">
                 <Button.Style>
-                    <Style TargetType="Button">
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="IsEnabled" Value="True"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Running}" Value="True">
@@ -28,14 +29,14 @@
                 </Button.Style>
             </Button>
             <Label Content="Mapping&#xA;" Height="26" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-            <local:MCMappingControl x:Name="MCMappingPicker" Height="25" VerticalAlignment="Top" Width="Auto" Margin="0" IsDisabled="{Binding Running}" OnPopupClosed="OnPopupClosed_Event"/>
+            <local:MCMappingControl x:Name="MCMappingPicker" Height="Auto" VerticalAlignment="Top" Width="Auto" Margin="0" IsDisabled="{Binding Running}" OnPopupClosed="OnPopupClosed_Event"/>
             <WrapPanel Margin="0">
                 <Label Content="Mappings:" Padding="5,5,1,5" FontWeight="Bold"/>
                 <Label Content="{Binding MappingCount}" Margin="0" Padding="3,5,5,5"/>
             </WrapPanel>
-            <Button Content="Refresh Mappings" Height="25" VerticalAlignment="Top" Margin="0,0,0,5" Click="RefreshButton_Click">
+            <Button Content="Refresh Mappings" Height="Auto" VerticalAlignment="Top" Margin="0,0,0,5" Click="RefreshButton_Click" Padding="4">
                 <Button.Style>
-                    <Style TargetType="Button">
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="IsEnabled" Value="True"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Source={x:Reference Name=MCMappingPicker}, Path=IsUpdating}" Value="True">
@@ -48,9 +49,9 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Start" Height="25" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Padding="1" RenderTransformOrigin="0.5,0.5" Margin="0,5" Click="StartButton_Click">
+            <Button Content="Start" Height="Auto" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" Margin="0,5" Click="StartButton_Click">
                 <Button.Style>
-                    <Style TargetType="Button">
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="IsEnabled" Value="True"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Running}" Value="True">
@@ -116,7 +117,7 @@
             </WrapPanel>
         </Grid>
         <ScrollViewer Margin="392.096,74.92,10,41" ScrollChanged="OnScrollChanged">
-            <TextBox x:Name="Console" TextWrapping="Wrap" IsReadOnly="True" IsReadOnlyCaretVisible="True">
+            <TextBox x:Name="Console" TextWrapping="Wrap" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="#FF1E1E1E">
                 <TextBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Clear" Click="ClearLog"/>
@@ -125,16 +126,26 @@
             </TextBox>
         </ScrollViewer>
         <Grid Margin="145.833,69.92,0,41" HorizontalAlignment="Left" Width="241.263">
-            <Label Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox x:Name="SearchBar" Margin="50.263,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="21.96" MaxLines="1" TextChanged="UpdateSearch"/>
-            <ListBox x:Name="ResultList" Margin="0,31.96,0,0" MouseDoubleClick="ResultDBClicked">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="SearchBar" Margin="0,0,0,2" TextWrapping="Wrap" VerticalAlignment="Top" MaxLines="1" TextChanged="UpdateSearch" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Search" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Grid.Column="1" Padding="0"/>
+            <ListBox x:Name="ResultList" Margin="0" MouseDoubleClick="ResultDBClicked" Background="#FF1E1E1E" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <ListBox.CommandBindings>
                     <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
                 </ListBox.CommandBindings>
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Command="ApplicationCommands.Copy">
-                            <MenuItem.CommandBindings>
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ContentCopy" />
+                            </MenuItem.Icon>
+                            <MenuItem.CommandBindings >
                                 <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"/>
                             </MenuItem.CommandBindings>
                         </MenuItem>

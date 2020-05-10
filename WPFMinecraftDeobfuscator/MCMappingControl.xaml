@@ -22,9 +22,9 @@
         </Style>
     </UserControl.Resources>
     <Grid Margin="0">
-        <Button x:Name="SelectMapButton" Margin="0" Click="Button_Click">
+        <Button x:Name="SelectMapButton" Margin="0" Click="Button_Click" Height="Auto">
             <Button.Style>
-                <Style TargetType="Button">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="Content" Value="{Binding MappingName}"/>
                     <Setter Property="ToolTip" Value="{Binding MappingName}"/>
                     <Style.Triggers>
@@ -55,7 +55,7 @@
                     </Style.Triggers>
                 </Style>
             </Popup.Style>
-            <Grid x:Name="Grid" Background="#FFE5E5E5">
+            <Grid x:Name="Grid" Background="#FFD1C4E9">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -65,15 +65,15 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="MC Version" Margin="0" HorizontalContentAlignment="Center"/>
-                <ComboBox x:Name="MCVersionDropDown" Margin="2,0,2.5,2" Grid.Row="1" Height="26" VerticalContentAlignment="Center" SelectionChanged="MCVersionDropDown_SelectionChanged">
+                <Label Content="MC Version" Margin="0" HorizontalContentAlignment="Center" Foreground="#DD000000"/>
+                <ComboBox x:Name="MCVersionDropDown" Margin="2,0,2.5,2" Grid.Row="1" Height="26" VerticalContentAlignment="Center" SelectionChanged="MCVersionDropDown_SelectionChanged" Background="#FF673AB7" Padding="6">
                     <ComboBox.Style>
-                        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource BaseButton}"/>
+                        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}"/>
                     </ComboBox.Style>
                 </ComboBox>
-                <ComboBox x:Name="TypeDropDown" Margin="2.5,0,2.5,2" Grid.Row="1" Grid.Column="1" Height="26" VerticalContentAlignment="Center" SelectionChanged="TypeDropDown_SelectionChanged">
+                <ComboBox x:Name="TypeDropDown" Margin="2.5,0,2.5,2" Grid.Row="1" Grid.Column="1" Height="26" VerticalContentAlignment="Center" SelectionChanged="TypeDropDown_SelectionChanged" Background="#FF673AB7" Padding="6">
                     <ComboBox.Style>
-                        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource BaseButton}">
+                        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Source={x:Reference Name=MCVersionDropDown}, Path=SelectedIndex}" Value="-1">
                                     <Setter Property="IsEnabled" Value="False"/>
@@ -91,9 +91,9 @@
                         </Style>
                     </ComboBox.Style>
                 </ComboBox>
-                <ComboBox x:Name="SnapshotDropDown" Margin="2.5,0,2.5,2" Grid.Row="1" Grid.Column="2" Height="26" VerticalContentAlignment="Center" SelectionChanged="SnapshotDropDown_SelectionChanged">
+                <ComboBox x:Name="SnapshotDropDown" Margin="2.5,0,2.5,2" Grid.Row="1" Grid.Column="2" Height="26" VerticalContentAlignment="Center" SelectionChanged="SnapshotDropDown_SelectionChanged" Background="#FF673AB7" Padding="6">
                     <ComboBox.Style>
-                        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource BaseButton}">
+                        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Mapping}" Value="{x:Static local:MCMapping.SemiLive}">
                                     <Setter Property="IsEnabled" Value="False"/>
@@ -112,8 +112,8 @@
                         </Style>
                     </ComboBox.Style>
                 </ComboBox>
-                <Label Content="Type" HorizontalContentAlignment="Center" Grid.Column="1"/>
-                <Label Content="Snapshot" HorizontalContentAlignment="Center" Grid.Column="2"/>
+                <Label Content="Type" HorizontalContentAlignment="Center" Grid.Column="1" Foreground="#DD000000"/>
+                <Label Content="Snapshot" HorizontalContentAlignment="Center" Grid.Column="2" Foreground="#DD000000"/>
             </Grid>
         </Popup>
 

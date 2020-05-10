@@ -12,9 +12,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MinecraftDeobfuscator {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window {
         private static readonly DependencyProperty MappingCountProperty = DependencyProperty.Register("MappingCount",
             typeof(int), typeof(MainWindow), new PropertyMetadata(0));
@@ -319,7 +316,6 @@ namespace MinecraftDeobfuscator {
         private void DeobfuscateSteam(MemoryStream source, out MemoryStream output, ref int count) {
             source.Position = 0;
             output = new MemoryStream();
-
             long markPos = 0;
             BinaryTree<char, string>.Node currentNode = null;
             while (source.Position < source.Length) {
@@ -333,7 +329,6 @@ namespace MinecraftDeobfuscator {
                     if (currentNode != null && currentNode.Value != null) {
                         output.Position = markPos;
                         output.Write(Encoding.ASCII.GetBytes(currentNode.Value), 0, currentNode.Value.Length);
-                        // Log($"Found '{currentNode.Keys}' replaced with '{currentNode.Value}'");
                         count++;
                         currentNode = null;
                         continue;
@@ -341,7 +336,6 @@ namespace MinecraftDeobfuscator {
                 }
                 output.WriteByte((byte)c);
             }
-
             source.Position = 0;
             output.Position = 0;
         }
